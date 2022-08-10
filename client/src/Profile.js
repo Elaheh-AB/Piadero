@@ -1,6 +1,6 @@
 import React , { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Navbar from "./Navbar";
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
@@ -9,6 +9,9 @@ const Profile = () => {
   }
 
   return (
+    <>
+    <Navbar></Navbar>
+    {   
     isAuthenticated && (
       <div>
         <img src={user.picture} alt={user.name} />
@@ -21,7 +24,7 @@ const Profile = () => {
           "No user metadata defined"
         )}
       </div>
-    )
+    )}</>
   );
 };
 

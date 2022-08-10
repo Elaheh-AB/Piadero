@@ -5,6 +5,7 @@ const morgan = require("morgan");
 
 const PORT = 4000;
 const { addUser } = require("./handlers/addUser");
+const { getCurrentWeather } = require("./handlers/getCurrentWeather");
 
 express()
   .use(function (req, res, next) {
@@ -27,4 +28,5 @@ express()
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
  .post("/add-user",addUser)
+ .get("/currentWeather/:city",getCurrentWeather)
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

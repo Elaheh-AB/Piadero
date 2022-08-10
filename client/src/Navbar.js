@@ -6,34 +6,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const addUser = async () => {
-    console.log(Object.values(user)+"user")
-    await fetch("/add-user", {
-       method: "POST",
-       headers: {
-         "Content-Type": "Application/json",
-       },
-       body: JSON.stringify(user),
-     }) .then((res) => res.json())
-     .then((json) => {
-       console.log(Object.keys(json) + "json");
-       if (json.message === "success") {
-         localStorage.setItem("currentUserSub", json.sub);
-     //    navigate("/");
-       } else if (json.message === "user not found") {
-         alert("Your name is not registered");
-       }
-      
-     })
-       .catch((err) => {
-        
-         return console.log(err);
-       });
-   };
-  if(isAuthenticated){
-    addUser();
-  }
-
+ 
 
 
   return (
@@ -42,7 +15,7 @@ const Navbar = () => {
     
     <WrapperFirstSection>
       <NavigationLinkLogo to="/">
-        <img src="\logo192.png" alt="logo - return home page" />
+        <img src="\logo.png" alt="logo - return home page" />
       </NavigationLinkLogo>
       <NavigationLink to="/groups">My Groups</NavigationLink>
       <WrapperCategories>
@@ -62,7 +35,9 @@ const Navbar = () => {
      
      
       {isAuthenticated ? (<>
-    <NavigationLink to="/profile">My Account</NavigationLink>
+        
+    <NavigationLink to="/profile"><h4>Hello {user.name}</h4></NavigationLink>
+   
    <LogoutButton/> </>
 )
 :  <LoginButton/>
@@ -79,6 +54,7 @@ justify-content: space-between;
 height: var(--header-height);
 overflow: hidden;
 background: white;
+padding: 15px;
 `;
 
 const WrapperFirstSection = styled.div`
@@ -92,11 +68,11 @@ flex-direction: row;
 const WrapperSecondSection = styled.div`
 display: flex;
 flex-wrap: nowrap;
-align-content: center;
+align-content: flex-end;
 justify-content: flex-end;
-align-items: center;
+align-items:center;
 flex-direction: row;
-flex-basis: 60vw;
+flex-basis:50%;
 `;
 
 
@@ -137,12 +113,15 @@ outline: none;
 }
 `;
 
-const NavigationLink = styled(NavLink)``;
+const NavigationLink = styled(NavLink)`
+
+`;
 const NavigationLinkLogo = styled(NavLink)`
 background: transparent !important;
 
 img {
-  height: 150px;
+  
+  width: 50px
 }
 `;
     
