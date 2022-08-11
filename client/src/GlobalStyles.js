@@ -14,7 +14,7 @@ export default createGlobalStyle`
       --page-horizontal-padding: 20px;
       --header-height: 100px;
       --max-content-width: 1200px;
-      --font-family: 'Raleway', sans-serif;
+      --font-family: 'roboto', sans-serif;
     }
 
     html, body, div, span, applet, object, iframe,
@@ -73,8 +73,10 @@ export default createGlobalStyle`
     h3 {
         font-size: 1.5em;
     }
-
-    button {
+    
+select{
+    margin: 10px;
+    padding: 8px;
         background: transparent;
         font-family: var(--font-family);
         color: var(--font-color);
@@ -84,6 +86,31 @@ export default createGlobalStyle`
         box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 
+}
+input{
+    margin: 10px;
+    padding: 8px;
+        background: transparent;
+        font-family: var(--font-family);
+        color: var(--font-color);
+        border: none;
+        border-radius:5px;
+        outline: 1px solid var(--font-color);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+}
+    button {
+        padding: 8px;
+        background: transparent;
+        font-family: var(--font-family);
+        color: var(--font-color);
+        border: none;
+        border-radius:5px;
+        outline: 1px solid var(--font-color);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        margin: 10px;
         :hover {
             cursor:pointer;
             background: var(--warning);

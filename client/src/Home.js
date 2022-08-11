@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import LoginButton from "./LoginButton";
 
 const Home = () => {
   const request = require("request-promise");
@@ -11,11 +12,12 @@ const Home = () => {
   const [userMetadata, setUserMetadata] = useState(null);
   const [city, setCity] = useState("");
   const [temp,setTemp]=useState();
+  let navigate = useNavigate();
   if (isLoading) {
     return <div>Loading ...</div>;
   }
 
-  
+ 
     const getWeather = (city) => {
         fetch(`/currentWeather/${city}`)
       .then((res) => res.json())
@@ -30,12 +32,13 @@ const Home = () => {
   return (
     <>
       <Navbar></Navbar>
-      {isAuthenticated && (
-        <div>
+      <WrapperCategories>
+    
+      <div>
           
-
-          <h3> Where do you want to walk?</h3>
-          <WrapperCategories>
+         
+          <h1> Where do you want to walk?</h1>
+          
             <select
               id="selectedCity"
               value={city}
@@ -52,26 +55,70 @@ const Home = () => {
               <option value="Vancouver">Vancouver</option>
             </select>
             {city != "" && (
-              <h2>
+                <>
+                <h2>
                 Today in {city} the weather feels like {temp}
                
               </h2>
+              </>
             )}
-          </WrapperCategories>
-        </div>
-      )}
-    </>
+              
+           
+         
+       
+      {isAuthenticated ? (
+        <button onClick={() => navigate("/creatgroup")}>Create your group</button>
+       
+      ):(
+      
+           <LoginButton/>
+          
+          
+      )
+     }
+      </div>
+      </WrapperCategories></>
   );
+  
 };
 
 export default Home;
 const WrapperCategories = styled.div`
-  float: left;
+
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ margin: 15px;
   overflow: hidden;
+  text-align: center;
 
   a {
     float: none;
     display: block;
     text-align: left;
   }
+  h1{
+    margin-top: 100px;
+    margin-bottom:15px ;
+  }
+  h2{
+    padding: 10px;
+    text-align: center;
+  }
+ 
+div{
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    margin: 15px;
+    padding: 15px;
+    width: 470px;
+}
+`;
+const ImgB = styled.img`
+
+ width: fit-content;
+
+ z-index: -1000;
 `;

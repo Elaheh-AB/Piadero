@@ -51,6 +51,7 @@ const Wrapper = styled.div`
 display: flex;
 flex-direction: row;
 justify-content: space-between;
+
 height: var(--header-height);
 overflow: hidden;
 background: white;
@@ -59,7 +60,7 @@ padding: 15px;
 
 const WrapperFirstSection = styled.div`
 display: flex;
-flex-wrap: nowrap;
+//flex-wrap: nowrap;
 align-content: center;
 justify-content: center;
 align-items: center;
@@ -67,7 +68,7 @@ flex-direction: row;
 `;
 const WrapperSecondSection = styled.div`
 display: flex;
-flex-wrap: nowrap;
+//flex-wrap: nowrap;
 align-content: flex-end;
 justify-content: flex-end;
 align-items:center;

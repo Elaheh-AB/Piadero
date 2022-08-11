@@ -2,10 +2,12 @@
 
 const express = require("express");
 const morgan = require("morgan");
-
 const PORT = 4000;
 const { addUser } = require("./handlers/addUser");
 const { getCurrentWeather } = require("./handlers/getCurrentWeather");
+const { addGroup } = require("./handlers/addGroup");
+const { getGroups } = require("./handlers/getGroups");
+const { getGroupById } = require("./handlers/getGroupById");
 
 express()
   .use(function (req, res, next) {
@@ -27,6 +29,9 @@ express()
 
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
- .post("/add-user",addUser)
- .get("/currentWeather/:city",getCurrentWeather)
+  .post("/add-user", addUser)
+  .post("/add-group", addGroup)
+  .get("/currentWeather/:city", getCurrentWeather)
+  .get("/groups/:userId", getGroups)
+  .get("/mygroups/:groupId", getGroupById)
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
