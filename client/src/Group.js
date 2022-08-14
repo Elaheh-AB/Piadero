@@ -110,8 +110,8 @@ const WrapperCategories = styled.div`
     display: flex;
     flex-direction: column;
     background-color: aliceblue;
-   // margin: 25px;
-   // padding: 25px;
+   margin: 25px;
+   padding: 25px;
     width: 470px;
   }
 `;
