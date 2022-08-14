@@ -18,7 +18,7 @@ const handleCreateGroup=async (e)=>{
     headers: {
       "Content-Type": "Application/json",
     },
-    body: JSON.stringify({name:name,desc:desc,city:city,sub:user.sub}),
+    body: JSON.stringify({name:name,desc:desc,city:city,members:[{user:user.sub,isAdmin:true,picture:user.picture,name:user.name}]}),
   }) .then((res) => res.json())
   .then((json) => {
     console.log(Object.keys(json) + "json");
@@ -57,7 +57,7 @@ const handleCreateGroup=async (e)=>{
                 required
               />
 <br></br>
-              <label for="desc">
+              <label>
                 <b>Description</b>
               </label>
               <input
@@ -69,7 +69,7 @@ const handleCreateGroup=async (e)=>{
                 required
               />
 <br></br>
-<label for="city">
+<label >
                 <b>City</b>
               </label>
               <select

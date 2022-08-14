@@ -7,6 +7,7 @@ import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButon";
 import Profile from "./Profile";
 import Groups from "./Groups";
+import Invite from "./Invite";
 import Navbar from "./Navbar";
 import Group from "./Group";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -54,7 +55,7 @@ const App=()=> {
         <Route path="/groups" element={<Groups />}/>
         <Route path="/groups/:groupId" element={<Group />}/>
         <Route path="/Profile" element={<Profile />}/>
- 
+        <Route path="/invite/:groupId" element={<Invite />}/>
     </Routes>
       </Router>
     </>

@@ -11,12 +11,13 @@ const options = {
 const { v4: uuidv4 } = require("uuid");
 
 // add new user to db
-const addGroup = async (req, res) => {
-  const name = req.body.name; //group name
-  const desc = req.body.desc; //group description
-  const city = req.body.city; //group city
-  const members = req.body.members; //user id in Auth0
-  console.log(name,desc,city,members+"test");
+const addMember = async (req, res) => {
+  const memberSub = req.body.sub; //user id in Auth0
+  const groupId = req.body.groupId; //group id
+  const picture=req.body.picture;
+  const name=req.body.name;
+
+  console.log(memberSub+"memberSub");
   // creates a new client
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -28,19 +29,27 @@ const addGroup = async (req, res) => {
     console.log("connected!");
     const result = await db
       .collection("groups")
-      .insertOne({ members, name, desc, city, _id: uuidv4() });
+      .updateOne(
+        { _id: `${groupId}` },
+        { $addToSet: {"members":{user:memberSub,isAdmin:true,picture:picture,name:name}}} )
 
     // On success/no error, send
-    if (result.acknowledged) {
+    if (result.acknowledged === true && result.modifiedCount === 1) {
       //send back id to store in local storage
       return res.status(201).json({
         status: 201,
-        message: "group added",
-        groupId: result.insertedId,
+        message: "member added",
+        groupId: groupId,
+       
       });
     } else {
       // on failure/error, send
-      return res.status(404).json({ status: 404, message: "can't add group" });
+      if(result.acknowledged === true && result.matchedCount === 1){
+        return res.status(404).json({ status: 404,result, message: "member already exists" });
+      }else{
+        return res.status(404).json({ status: 404,result, message: "can't add member" });
+      }
+     
     }
   } catch (err) {
     console.log(err);
@@ -51,5 +60,5 @@ const addGroup = async (req, res) => {
 };
 
 module.exports = {
-  addGroup,
+  addMember,
 };

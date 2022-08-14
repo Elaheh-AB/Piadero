@@ -21,7 +21,7 @@ const userId=req.params.userId;
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db(dbName);
     console.log("connected!");
-    const groups = await db.collection("groups").find({ userId:userId }).toArray();
+    const groups = await db.collection("groups").find({members:{$elemMatch:{user:`${userId}`}}}).toArray();
   
     // On success/no error, send
     if (groups) {
