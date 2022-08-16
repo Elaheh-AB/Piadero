@@ -9,16 +9,16 @@ const options = {
 };
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
 const { v4: uuidv4 } = require("uuid");
+const { getWalkers } = require("./getWalkers");
 
 // add new user to db
 const addWalker = async (req, res) => {
   const walkerName = req.body.walkerName; //walker name
   const groupId = req.body.groupId; //group id
   const date = req.body.date; //walking time and date
+  console.log(Object.values(date) + "date");
   const walkerId = req.body.walkerId; //user id in Auth0
-  let walkers=[];
-  walkers.push({walkerName:walkerName,walkerId:walkerId});
-  console.log(walkerName,groupId,date,walkerId+"addwalker");
+
   // creates a new client
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -28,9 +28,15 @@ const addWalker = async (req, res) => {
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db(dbName);
     console.log("connected!");
-    const result = await db
-      .collection("walkers")
-      .insertOne({ walkers,groupId,date, _id: uuidv4() });
+
+    const result = await db.collection("walkers").updateOne(
+      { date: `${date}`, groupId: `${groupId}` },
+      {
+        $addToSet: { walkers: { walkerName: walkerName, walkerId: walkerId } },
+        $setOnInsert: { groupId, date, _id: uuidv4() },
+      },
+      { upsert: true }
+    );
 
     // On success/no error, send
     if (result.acknowledged) {
@@ -53,5 +59,5 @@ const addWalker = async (req, res) => {
 };
 
 module.exports = {
-    addWalker,
+  addWalker,
 };

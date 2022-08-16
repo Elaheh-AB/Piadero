@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
+import { TimeContext } from "./TimeContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
@@ -11,7 +12,10 @@ const Group = ({}) => {
   const [group, setGroup] = useState([]);
   const[shareUrl,setShareUrl]=useState("");
   const[city,setCity]=useState("");
-  
+  const {
+    state: { cnt, forecast, hasLoaded },
+    actions: { receiveForecastInfoFromServer },
+  } = useContext(TimeContext);
   let { groupId } = useParams();
   let navigate = useNavigate();
   useEffect(() => {
@@ -33,7 +37,37 @@ const Group = ({}) => {
       console.log(`http://localhost:3001/invite/${groupId}`);
     }
   }, []);
-
+const handleSelectedTime=async(e)=>{
+  const selected=forecast.filter((slot)=>{
+return slot.selected==="true";
+  })
+  e.preventDefault();
+  console.log(selected);
+  selected.map((slot)=>{
+     fetch("/add-walker", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({walkerName:user.name,walkerId:user.sub,groupId:groupId,date:slot.time}),
+    }) .then((res) => res.json())
+    .then((json) => {
+      console.log(Object.keys(json) + "json");
+      if (json.message === "walker added") {
+        alert("Your intrest saved Successfuly");
+      } else if (json.message === "can't add walker") {
+        alert("there is a problem please try again");
+      }
+     
+    })
+      .catch((err) => {
+       
+        return console.log(err);
+      });
+  
+  })
+ 
+}
   return (
     <>
       <Navbar></Navbar>
@@ -92,6 +126,10 @@ const Group = ({}) => {
 {city &&   <Calendar city={city}></Calendar>}
 
 </CalWrapp>
+
+{forecast &&   <button onClick={handleSelectedTime}>
+Save
+</button>}
 </div>
 <div>
             <button onClick={() => navigate("/creatgroup")}>

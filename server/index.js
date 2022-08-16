@@ -13,6 +13,7 @@ const { getUserById } = require("./handlers/getUser");
 const { getQoute } = require("./handlers/getQoute");
 const { getForcast } = require("./handlers/getForecast");
 const { addWalker } = require("./handlers/addWalker");
+const { getWalkers } = require("./handlers/getWalkers");
 
 express()
   .use(function (req, res, next) {
@@ -42,6 +43,7 @@ express()
   .get("/forecast/:city", getForcast)
   .get("/qoute/:type", getQoute)
   .get("/groups/:userId", getGroups)
+  .get("/walkers/:date/:groupId", getWalkers)
   .get("/mygroups/:groupId", getGroupById)
   .get("/users/:userId", getUserById)
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

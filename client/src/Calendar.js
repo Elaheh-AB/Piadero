@@ -30,7 +30,7 @@ import { useAuth0 } from "@auth0/auth0-react";
         .catch((error) => {
           console.log("There was an error!", error);
         });
-        console.log(city,forecast+"cf");
+        //console.log(city,forecast+"cf");
     };
     if (isAuthenticated) {
       getForcast();
@@ -94,9 +94,7 @@ import { useAuth0 } from "@auth0/auth0-react";
                 })
               
         )}
-        {forecast &&   <button onClick={() => alert("Changes saved Successfuly")}>
-Save
-</button>}
+       
     </Wrapper>
   );
 };
