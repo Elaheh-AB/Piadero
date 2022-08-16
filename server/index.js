@@ -11,6 +11,7 @@ const { getGroups } = require("./handlers/getGroups");
 const { getGroupById } = require("./handlers/getGroupById");
 const { getUserById } = require("./handlers/getUser");
 const { getQoute } = require("./handlers/getQoute");
+const { getForcast } = require("./handlers/getForecast");
 
 express()
   .use(function (req, res, next) {
@@ -36,6 +37,7 @@ express()
   .post("/add-group", addGroup)
   .patch("/add-member", addMember)
   .get("/currentWeather/:city", getCurrentWeather)
+  .get("/forecast/:city", getForcast)
   .get("/qoute/:type", getQoute)
   .get("/groups/:userId", getGroups)
   .get("/mygroups/:groupId", getGroupById)

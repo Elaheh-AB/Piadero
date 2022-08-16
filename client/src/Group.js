@@ -4,11 +4,14 @@ import Navbar from "./Navbar";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import LoginButton from "./LoginButton";
+import Calendar from "./Calendar";
 
 const Group = ({}) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [group, setGroup] = useState([]);
   const[shareUrl,setShareUrl]=useState("");
+  const[city,setCity]=useState("");
+  
   let { groupId } = useParams();
   let navigate = useNavigate();
   useEffect(() => {
@@ -18,6 +21,7 @@ const Group = ({}) => {
         .then((data) => {
           console.log(Object.keys(data) + "data");
           setGroup(data.group);
+          setCity(data.group.city)
         })
         .catch((error) => {
           console.log("There was an error!", error);
@@ -34,19 +38,22 @@ const Group = ({}) => {
     <>
       <Navbar></Navbar>
       <WrapperCategories>
-        <div>
+       
           {isLoading && <h1>loading...</h1>}
           {!isAuthenticated ? (
             <div>
               <h1> Please login to see your groups</h1>
               <LoginButton></LoginButton>
             </div>
+            
           ) : (
             <>
+             <div>
               <h1>{group.name} </h1>
+             
               <Info>
               {group && Array.isArray(group.members)&&group.members.map((member) => {
-                console.log(member + "member");
+               
                 return (<> 
                   <img src={user.picture} alt={user.name}/>
                 <p> {member.name}</p>
@@ -74,15 +81,26 @@ const Group = ({}) => {
                 Copy
               </button>
 </CopyLink>
-             
+</div>
             </>
           )}
           {isAuthenticated && (
+            <>
+<div>
+  <h2>Select your prefered time slot</h2>
+<CalWrapp>
+{city &&   <Calendar city={city}></Calendar>}
+
+</CalWrapp>
+</div>
+<div>
             <button onClick={() => navigate("/creatgroup")}>
               Create new group
             </button>
-          )}
-        </div>
+            </div>
+            </>  )}
+        
+        
       </WrapperCategories>
     </>
   );
@@ -97,7 +115,7 @@ const WrapperCategories = styled.div`
   margin: 15px;
   overflow: hidden;
   text-align: center;
-
+  
   a {
     float: none;
     display: block;
@@ -108,6 +126,8 @@ const WrapperCategories = styled.div`
   }
   div {
     display: flex;
+    flex-grow: 1;
+  width: 50%;
     flex-direction: column;
     background-color: aliceblue;
    margin: 25px;
@@ -137,4 +157,12 @@ flex: 60%;
   border-radius: 50%;
   width: 30px;
  }
+`;
+const CalWrapp = styled.span`
+margin: 0px;
+padding:0px;
+display:flex;
+ width: fit-content;
+ flex-wrap: wrap;
+ 
 `;

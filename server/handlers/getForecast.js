@@ -3,22 +3,28 @@ const e = require("express");
 
 
 // returns a cart
-const getCurrentWeather = async (req, res) => {
+const getForcast = async (req, res) => {
   const city = req.params.city;
+  let calendar=[];
   // creates a new client
   const request = require("request-promise");
   try {
     const key = process.env.OPEN_WEATHER_API_KEY;
     const q = `${city}`;
     const result = await request(
-        `https://api.openweathermap.org/data/2.5/weather?q=${q},ca&units=metric&appid=${key}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${q},ca&units=metric&appid=${key}`
       )
       console.log(result+"res:")
     // on success
     if (result) {
+       JSON.parse(result).list.map((time)=>{
+        calendar.push({time:time.dt_txt,temp:time.main.feels_like});
+
+        })
+        console.log(calendar);
       return res
         .status(200)
-        .json({ status: 200, feels_like: JSON.parse(result).main.feels_like, message: "success" });
+        .json({ status: 200,cnt:JSON.parse(result).cnt,forecast:calendar, message: "success" });
     } else {
       // on failure
       return res
@@ -31,5 +37,5 @@ const getCurrentWeather = async (req, res) => {
 };
 
 module.exports = {
-    getCurrentWeather,
+    getForcast,
 };
