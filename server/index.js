@@ -12,6 +12,7 @@ const { getGroupById } = require("./handlers/getGroupById");
 const { getUserById } = require("./handlers/getUser");
 const { getQoute } = require("./handlers/getQoute");
 const { getForcast } = require("./handlers/getForecast");
+const { addWalker } = require("./handlers/addWalker");
 
 express()
   .use(function (req, res, next) {
@@ -34,6 +35,7 @@ express()
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
   .post("/add-user", addUser)
+  .post("/add-walker", addWalker)
   .post("/add-group", addGroup)
   .patch("/add-member", addMember)
   .get("/currentWeather/:city", getCurrentWeather)

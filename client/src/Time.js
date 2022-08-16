@@ -3,15 +3,22 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const Time = ({ time,temp }) => {
-  
-const [ideal,setIdeal]=useState(false);
-
+const Time = ({ time,temp,selected }) => {
+  //console.log( time,temp,selected+" time,temp,selected")
+const [ideal,setIdeal]=useState("false");
+const [select,setSelect]=useState(selected);
 useEffect(()=>{
     if(parseInt(temp)>=19 && parseInt(temp)<=27){
-        setIdeal(true);
+        setIdeal("true");
     }
 },[])
+useEffect(()=>{
+    if(selected==="true"){
+        setSelect("true");
+    }else{
+        setSelect("false");
+    }
+},[selected])
 const handleChoose=(e)=>{
     e.preventDefault();
    // myBtn.classList.add("pressed")
@@ -22,7 +29,7 @@ const handleChoose=(e)=>{
   return (
     <>
          
-      <Button type={ideal}  id="btn"  onClick={handleChoose}>
+      <Button type={ideal} selected={select} id={time}  onClick={handleChoose}>
             <span>
              
               <p>{time}</p>
@@ -43,6 +50,7 @@ padding:5px;
 padding-bottom:15px;
 display:flex;
 font-size: smaller;
+height: fit-content;
 
    
     :focus {     
@@ -54,9 +62,9 @@ font-size: smaller;
   width:50%;
 }
 
-background: ${({type}) => (type===true ? '#44D62C;' : 'transparent')};
+background: ${({type,selected}) => (selected==="true" ?'#9a91ee;': type==="true" ?'#b2e8a9;'  : 'transparent')};
 
- 
+//background: ${({selected}) => (selected===true ? '#6f67b7;' : 'transparent')};
 `;
 const FriendBadge=styled.img`
 position: absolute;

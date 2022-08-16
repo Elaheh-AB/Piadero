@@ -13,7 +13,7 @@ const getCurrentWeather = async (req, res) => {
     const result = await request(
         `https://api.openweathermap.org/data/2.5/weather?q=${q},ca&units=metric&appid=${key}`
       )
-      console.log(result+"res:")
+     // console.log(result+"res:")
     // on success
     if (result) {
       return res
