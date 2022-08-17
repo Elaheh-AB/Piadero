@@ -2,11 +2,12 @@ import styled from "styled-components";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-
-const Time = ({ time,temp,selected }) => {
+import { useAuth0 } from "@auth0/auth0-react";
+const Time = ({ time,temp,selected,members }) => {
   //console.log( time,temp,selected+" time,temp,selected")
 const [ideal,setIdeal]=useState("false");
 const [select,setSelect]=useState(selected);
+const { user, isAuthenticated, isLoading } = useAuth0();
 useEffect(()=>{
     if(parseInt(temp)>=19 && parseInt(temp)<=27){
         setIdeal("true");
@@ -37,7 +38,14 @@ const handleChoose=(e)=>{
               <p>{time}</p>
               <b> <p>{temp}</p></b>
             </span>
-            <FriendBadge src="\logo.png" ></FriendBadge>
+            {members.map((member)=>{
+if(member.walkerId!==user.sub){
+    return  <FriendBadge src="\logo.png" ></FriendBadge>
+}else{
+    
+}
+            })}
+           
           </Button>
      
     </>

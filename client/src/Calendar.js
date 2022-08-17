@@ -51,9 +51,15 @@ import { useAuth0 } from "@auth0/auth0-react";
       
           if(sslot.date===slot.time){
             console.log(sslot.walkers+"ss"+slot.time)
+            sslot.walkers.map((member)=>{
+              if(member.walkerId===user.sub){
+                slot.selected="true";
+              }
+                          })
            
-            slot.selected="true";
+            slot.members=sslot.walkers;
           }
+
       })
          
         return (
@@ -75,6 +81,7 @@ import { useAuth0 } from "@auth0/auth0-react";
               time={slot.time}
              temp={slot.temp}
              selected={slot.selected}
+             members={slot.members}
             />
           </TimeWrapper>
 
