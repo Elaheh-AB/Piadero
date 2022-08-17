@@ -12,6 +12,7 @@ const Group = ({}) => {
   const [group, setGroup] = useState([]);
   const[shareUrl,setShareUrl]=useState("");
   const[city,setCity]=useState("");
+  const [flag,setFlag]=useState(true);
   const {
     state: { cnt, forecast, hasLoaded },
     actions: { receiveForecastInfoFromServer },
@@ -23,7 +24,7 @@ const Group = ({}) => {
       fetch(`/mygroups/${groupId}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(Object.keys(data) + "data");
+          //console.log(Object.keys(data) + "data");
           setGroup(data.group);
           setCity(data.group.city)
         })
@@ -34,10 +35,31 @@ const Group = ({}) => {
     if (isAuthenticated) {
       getGroup();
       setShareUrl(`http://localhost:3001/invite/${groupId}`);
-      console.log(`http://localhost:3001/invite/${groupId}`);
+     // console.log(`http://localhost:3001/invite/${groupId}`);
     }
   }, []);
+    const[selectedSlots,setSelectedSlots]=useState([]);
+    useEffect(() => {    
+      const getSelectedStlots=()=>{
+         
+        fetch(`/walkers/${groupId}`)
+          .then((res) => res.json())
+          .then((data) => {
+             // console.log(Object.keys(data.walkers)+"walkersslot")
+              setSelectedSlots(data.walkers);
+          })
+          .catch((error) => {
+            console.log("There was an error!", error);
+          });
+       
+      };
+      if (isAuthenticated) {
+       
+        getSelectedStlots();
+      }
+    }, []);
 const handleSelectedTime=async(e)=>{
+ 
   const selected=forecast.filter((slot)=>{
 return slot.selected==="true";
   })
@@ -54,9 +76,12 @@ return slot.selected==="true";
     .then((json) => {
       console.log(Object.keys(json) + "json");
       if (json.message === "walker added") {
-        alert("Your intrest saved Successfuly");
+        console.log(json.message+"msg")
+       // alert("Your intrest saved Successfuly");
+      setFlag(true)
       } else if (json.message === "can't add walker") {
-        alert("there is a problem please try again");
+       // alert("there is a problem please try again");
+       setFlag(false);
       }
      
     })
@@ -65,8 +90,14 @@ return slot.selected==="true";
         return console.log(err);
       });
   
-  })
- 
+  }
+  
+  )
+  if(flag){
+    alert("Your intrest saved Successfuly");
+   }else{
+    alert("there is a problem please try again");
+   }
 }
   return (
     <>
@@ -123,7 +154,7 @@ return slot.selected==="true";
 <div>
   <h2>Select your prefered time slot</h2>
 <CalWrapp>
-{city &&   <Calendar city={city}></Calendar>}
+{city &&   <Calendar city={city} selectedSlots={selectedSlots}></Calendar>}
 
 </CalWrapp>
 

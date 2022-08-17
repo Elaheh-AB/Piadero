@@ -37,9 +37,9 @@ const addWalker = async (req, res) => {
       },
       { upsert: true }
     );
-
+console.log(result.acknowledged+"ack")
     // On success/no error, send
-    if (result.acknowledged) {
+    if (result.acknowledged === true ) {
       //send back id to store in local storage
       return res.status(201).json({
         status: 201,

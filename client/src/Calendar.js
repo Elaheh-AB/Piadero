@@ -4,14 +4,10 @@ import { useContext, useEffect,useState } from "react";
 import { TimeContext } from "./TimeContext";
 import Time from "./Time";
 import { useAuth0 } from "@auth0/auth0-react";
- const Calendar = ({city}) => {
-  
-    const [isActive, setIsActive] = useState(false);
+ const Calendar = ({city,selectedSlots}) => {
+  console.log(selectedSlots+"ssssssssss")
     const [select,setSelect]=useState("false");
-    const handleClick = event => {
-      // 👇️ toggle isActive state on click
-      event.target.classList.toggle('pressed');
-    };
+   // const[selectedSlots,setSelectedSlots]=useState([]);
    const {
     state: { cnt, forecast, hasLoaded },
     actions: { receiveForecastInfoFromServer },
@@ -19,7 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
   const { user, isAuthenticated, isLoading } = useAuth0();
   useEffect(() => {
-    const getForcast = () => {
+    const getForcast =   () => {
       
       fetch(`/forecast/${city}`)
         .then((res) => res.json())
@@ -30,69 +26,67 @@ import { useAuth0 } from "@auth0/auth0-react";
         .catch((error) => {
           console.log("There was an error!", error);
         });
-        //console.log(city,forecast+"cf");
+
+       
+       
     };
+   
+   
+         
     if (isAuthenticated) {
       getForcast();
+     
     }
   }, []);
-
-  const handleChoose = (e) => {
-    e.preventDefault();
-    // max 4 selected
-    if (!e.target.classList.contains("selected")) {
-      const selectedCount = forecast.filter((slot) => slot.selected).length;
-      if (selectedCount === 4) {
-        return;
-      }else{
-        console.log(selectedCount+"count");
-      }
-    }
-    const currentSlot = document.getElementById(e.target.id);
-    console.log(currentSlot.classList+"idatt")
-      forecast.map((slot) =>
-       
-         slot.time === e.target.getAttribute("slot-id")
-          ?{ ...slot, selected: !slot.selected }
-          : slot
-      )
-   
-  };
+  
+ 
   return (
     <Wrapper>
-      {!hasLoaded ? (
+      {!hasLoaded  ? (
        <h1>Loading...</h1>
       ) : (
-     forecast &&   forecast.map((slot) => {
-                return (
-                  <>
-                  <TimeWrapper  onClick={((e)=>{e.currentTarget.classList.toggle('selected');
-                // slot.selected==="true"?slot.selected="false" :slot.selected="true";
-                 if(slot.selected==="true"){
-                  slot.selected="false"
-                  setSelect(!select);
-                 }else{
-                  slot.selected="true";
-                  setSelect(!select);
-                 }
-                 console.log(Object.values(slot));
-                // setSelect(slot.selected);
-                  })} >
-                    <Time
-                      
-                      time={slot.time}
-                     temp={slot.temp}
-                     selected={slot.selected}
-                    />
-                  </TimeWrapper>
+        
+     forecast  &&   forecast.map((slot) => {
+      selectedSlots.forEach((sslot)=>{
+      
+          if(sslot.date===slot.time){
+            console.log(sslot.walkers+"ss"+slot.time)
+           
+            slot.selected="true";
+          }
+      })
+         
+        return (
+          <>
+          <TimeWrapper  onClick={((e)=>{e.currentTarget.classList.toggle('selected');
+        // slot.selected==="true"?slot.selected="false" :slot.selected="true";
+         if(slot.selected==="true"){
+          slot.selected="false"
+          setSelect(!select);
+         }else{
+          slot.selected="true";
+          setSelect(!select);
+         }
+         console.log(Object.values(slot));
+        // setSelect(slot.selected);
+          })} >
+            <Time
+              
+              time={slot.time}
+             temp={slot.temp}
+             selected={slot.selected}
+            />
+          </TimeWrapper>
 
 
 </>
-                );
+        );
+      })
+        
            
           
-                })
               
+        
         )}
        
     </Wrapper>

@@ -21,8 +21,8 @@ const groupId=req.params.groupId;
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db(dbName);
     console.log("connected!");
-    const walkers = await db.collection("walkers").find({date:`${date}`, groupId: `${groupId}`}).toArray();
-  
+    const walkers = await db.collection("walkers").find({ groupId: `${groupId}`}).toArray();
+  console.log(walkers+"w")
     // On success/no error, send
     if (walkers) {
         return res
