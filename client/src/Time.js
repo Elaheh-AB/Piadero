@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Tippy from "@tippyjs/react";
+import "tippy.js/themes/light-border.css";
 const Time = ({ time,temp,selected,members }) => {
   //console.log( time,temp,selected+" time,temp,selected")
 const [ideal,setIdeal]=useState("false");
@@ -31,7 +33,7 @@ const handleChoose=(e)=>{
 
   return (
     <>
-         
+       
       <Button type={ideal} selected={select} id={time}  onClick={handleChoose}>
             <span>
              
@@ -40,14 +42,18 @@ const handleChoose=(e)=>{
             </span>
             {members.map((member)=>{
 if(member.walkerId!==user.sub){
-    return  <FriendBadge src="\logo.png" ></FriendBadge>
+    return <>
+     
+    <FriendBadge src="\logo.png" ></FriendBadge>
+   
+    </>
 }else{
     
 }
             })}
            
           </Button>
-     
+        
     </>
   );
 };
@@ -81,6 +87,8 @@ position: absolute;
 margin-top: 25px;
 width: 20px;
 z-index: 2;
+
+
 `;
 
 export default Time;
