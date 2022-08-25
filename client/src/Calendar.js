@@ -80,6 +80,7 @@ import { useAuth0 } from "@auth0/auth0-react";
               
               time={slot.time}
              temp={slot.temp}
+             icon={slot.icon}
              selected={slot.selected}
              members={slot.members}
             />

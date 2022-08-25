@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/themes/light-border.css";
-const Time = ({ time,temp,selected,members }) => {
+const Time = ({ time,temp,selected,members,icon }) => {
   //console.log( time,temp,selected+" time,temp,selected")
 const [ideal,setIdeal]=useState("false");
 const [select,setSelect]=useState(selected);
@@ -36,7 +36,7 @@ const handleChoose=(e)=>{
        
       <Button type={ideal} selected={select} id={time}  onClick={handleChoose}>
             <span>
-             
+             <img src={` http://openweathermap.org/img/wn/${icon}@2x.png`}></img>
               <p>{time}</p>
               <b> <p>{temp}</p></b>
             </span>

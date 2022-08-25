@@ -18,7 +18,7 @@ const getForcast = async (req, res) => {
     // on success
     if (result) {
        JSON.parse(result).list.map((time)=>{
-        calendar.push({time:time.dt_txt,temp:time.main.feels_like,selected:"false",members:[]});
+        calendar.push({time:time.dt_txt,temp:time.main.feels_like,icon:time.weather[0].icon,selected:"false",members:[]});
 
         })
         console.log(calendar);
