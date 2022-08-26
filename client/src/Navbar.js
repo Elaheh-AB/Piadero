@@ -51,11 +51,16 @@ const Wrapper = styled.div`
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-
+width: 100vw;
 height: var(--header-height);
 overflow: hidden;
 background: white;
 padding: 15px;
+@media (max-width: 900px) {
+    
+    flex-direction: column;
+    height: fit-content;
+      }
 `;
 
 const WrapperFirstSection = styled.div`

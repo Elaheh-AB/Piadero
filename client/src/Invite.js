@@ -99,8 +99,15 @@ const WrapperCategories = styled.div`
     background-color: aliceblue;
     margin: 25px;
     padding: 25px;
-    width: 470px;
+    width: 35vw;
   }
+  @media (max-width: 900px) {
+    
+    div{
+      width: 98vw;
+    }
+    
+      }
 `;
 
 const GroupsWrapper = styled.div`

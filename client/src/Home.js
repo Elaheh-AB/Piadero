@@ -132,7 +132,14 @@ const WrapperCategories = styled.div`
     background-color: aliceblue;
     margin: 15px;
     padding: 15px;
-    width: 470px;
+    width: 35vw;
+  }
+  @media (max-width: 900px) {
+    
+div{
+  width: 98vw;
+}
+
   }
 `;
 const ImgB = styled.img`

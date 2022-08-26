@@ -122,7 +122,7 @@ return slot.selected==="true";
                 return (<> 
                   <img src={user.picture} alt={user.name}/>
                 <p> {member.name}</p>
-               
+               <br></br>
               
                 </>
                 );
@@ -181,7 +181,7 @@ const WrapperCategories = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 15px;
+ // margin: 15px;
   overflow: hidden;
   text-align: center;
   
@@ -196,26 +196,37 @@ const WrapperCategories = styled.div`
   div {
     display: flex;
     flex-grow: 1;
-  width: 50%;
     flex-direction: column;
     background-color: aliceblue;
    margin: 25px;
    padding: 25px;
-    width: 470px;
+    width: 35vw;
   }
+  @media (max-width: 900px) {
+    
+    div{
+      width: 98vw;
+     
+    }
+    
+      }
+     
 `;
 
-const GroupsWrapper = styled.div`
-  background-color: aliceblue;
-`;
+
 const CopyLink = styled.span`
 display: inline-flex;
 align-items: center;
 justify-content: space-between;
 border: 1px solid black;
-margin: 8px;
-padding-left: 5px;
+margin: 5px;
+padding: 5px;
 border-radius: 5px;
+@media (max-width: 900px) {
+       
+     flex-direction: column;
+    
+      }
 `;
 const Info = styled.span`
 margin: 0px;
@@ -226,12 +237,15 @@ flex: 60%;
   border-radius: 50%;
   width: 30px;
  }
+ @media (max-width: 900px) {
+    display: block;
+  flex-wrap: wrap;
+    
+      }
+ 
 `;
 const CalWrapp = styled.span`
-margin: 0px;
-padding:0px;
-display:flex;
- width: fit-content;
- flex-wrap: wrap;
+display: flex;
+justify-content: center;
  
 `;
