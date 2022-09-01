@@ -60,12 +60,12 @@ padding: 15px;
     
     flex-direction: column;
     height: fit-content;
+    align-items: center;
       }
 `;
 
 const WrapperFirstSection = styled.div`
 display: flex;
-//flex-wrap: nowrap;
 align-content: center;
 justify-content: center;
 align-items: center;
@@ -73,7 +73,6 @@ flex-direction: row;
 `;
 const WrapperSecondSection = styled.div`
 display: flex;
-//flex-wrap: nowrap;
 align-content: flex-end;
 justify-content: flex-end;
 align-items:center;

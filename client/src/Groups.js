@@ -102,9 +102,20 @@ const WrapperCategories = styled.div`
     padding: 25px;
     width: 35vw;
   }
-  @media (max-width: 900px) {
-    div {
-      width: 98vw;
+  @media (min-width: 500px) and (max-width: 900px) {
+    
+    div{
+      width: 70vw;
+     
     }
-  }
+    
+      }
+      @media (max-width: 500px) {
+    
+    div{
+      width: 98vw;
+     
+    }
+    
+      }
 `;

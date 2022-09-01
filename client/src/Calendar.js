@@ -92,6 +92,7 @@ const Calendar = ({ city, selectedSlots }) => {
 const Wrapper = styled.span`
 margin-top: 15px;
  display: flex;
+ justify-content: center;
   flex-wrap: wrap;
   row-gap: 10px;
   column-gap: 2em;

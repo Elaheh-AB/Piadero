@@ -120,8 +120,17 @@ return slot.selected==="true";
               {group && Array.isArray(group.members)&&group.members.map((member) => {
                
                 return (<> 
-                  <img src={user.picture} alt={user.name}/>
-                <p> {member.name}</p>
+                 
+               
+                <TooltipCard>
+        <TooltipText>
+        <img src={user.picture} alt={user.name}/>
+        </TooltipText>
+        <TooltipBox>
+        <p> {member.name}</p>
+         
+        </TooltipBox>
+      </TooltipCard>
                <br></br>
               
                 </>
@@ -202,7 +211,15 @@ const WrapperCategories = styled.div`
    padding: 25px;
     width: 35vw;
   }
-  @media (max-width: 900px) {
+  @media (min-width: 500px) and (max-width: 900px) {
+    
+    div{
+      width: 70vw;
+     
+    }
+    
+      }
+      @media (max-width: 500px) {
     
     div{
       width: 98vw;
@@ -210,6 +227,7 @@ const WrapperCategories = styled.div`
     }
     
       }
+    
      
 `;
 
@@ -222,30 +240,77 @@ border: 1px solid black;
 margin: 5px;
 padding: 5px;
 border-radius: 5px;
-@media (max-width: 900px) {
-       
-     flex-direction: column;
-    
-      }
+flex-direction: column;
+
 `;
 const Info = styled.span`
 margin: 0px;
 padding:0px;
-display:flex;
+display: flex;
+justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 2em;
 flex: 60%;
  img{
   border-radius: 50%;
   width: 30px;
  }
- @media (max-width: 900px) {
-    display: block;
-  flex-wrap: wrap;
-    
-      }
+
  
 `;
 const CalWrapp = styled.span`
 display: flex;
 justify-content: center;
  
+`;
+const TooltipText = styled.span`
+  color: #fff;
+  width: 200px;
+  text-align: center;
+  line-height: 44px;
+  border-radius: 3px;
+  cursor: pointer;
+`;
+const TooltipBox = styled.span`
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 2px;
+  visibility: hidden;
+  color: transparent;
+  background-color: transparent;
+  width: fit-content;
+  padding: 5px 5px;
+  border-radius: 4px;
+
+  transition: visibility 0.5s, color 0.5s, background-color 0.5s, width 0.5s,
+    padding 0.5s ease-in-out;
+
+  &:before {
+    content: "";
+    width: 0;
+    height: 0;
+    left: 7px;
+    top: -6px;
+    position: absolute;
+
+    border: 6px solid transparent;
+    transform: rotate(135deg);
+    transition: border 0.3s ease-in-out;
+  }
+`;
+const TooltipCard = styled.span`
+  position: relative;
+  & ${TooltipText}:hover + ${TooltipBox} {
+    visibility: visible;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8);
+    width:fit-content;
+    padding: 8px 8px;
+
+    &:before {
+      border-color: transparent transparent rgba(0, 0, 0, 0.8)
+        rgba(0, 0, 0, 0.8);
+    }
+  }
 `;
