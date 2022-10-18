@@ -34,7 +34,7 @@ const Group = ({}) => {
     };
     if (isAuthenticated) {
       getGroup();
-      setShareUrl(`http://localhost:3001/invite/${groupId}`);
+      setShareUrl(`http://localhost:3000/invite/${groupId}`);
      // console.log(`http://localhost:3001/invite/${groupId}`);
     }
   }, []);

@@ -76,7 +76,8 @@ align-items: center;
 `;
 const FriendBadge = styled.img`
   position: absolute;
-  margin-top: 25px;
+  left:10%;
+  top:10%;
   width: 20px;
   z-index: 2;
 `;
